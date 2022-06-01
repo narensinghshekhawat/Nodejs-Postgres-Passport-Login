@@ -7,9 +7,14 @@ const express = require('express')
 const app = express()
 const bcrypt = require('bcrypt')
 const passport = require('passport')
+const morgan = require("morgan");
+const helmet = require("helmet");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
+const User = require("./models/user");
 
 const initializePassport = require('./passport-config')
 initializePassport(
@@ -52,21 +57,53 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
   res.render('register.ejs')
 })
 
-app.post('/register', checkNotAuthenticated, async (req, res) => {
-  try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    users.push({
-      //Id to uniquely identify the user, when we will integrate database in project this Id will be generated automatically
-      id: Date.now().toString(),
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword
-    })
-    res.redirect('/login')
-  } catch {
-    res.redirect('/register')
-  }
-})
+// --------------------- In-Memory User Register Code <---START---> ------------------
+// app.post('/register', checkNotAuthenticated, async (req, res) => {
+//   try {
+//     const hashedPassword = await bcrypt.hash(req.body.password, 10)
+//     console.log('hashedPassword == '+hashedPassword)
+//     users.push({
+//       //Id to uniquely identify the user, when we will integrate database in project this Id will be generated automatically
+//       id: Date.now().toString(),
+//       name: req.body.name,
+//       email: req.body.email,
+//       password: hashedPassword
+//     })
+//     res.redirect('/login')
+//   } catch {
+//     res.redirect('/register')
+//   }
+// })
+// --------------------- In-Memory User Register Code <---END---> ------------------
+
+  app.post("/register",checkNotAuthenticated, async (req, res) => {
+      const { name, email, password,role } = req.body;
+      const alreadyExistsUser = await User.findOne({ where: { email } }).catch(
+        (err) => {
+          console.log("Error: ", err);
+        }
+      );
+      if (alreadyExistsUser) {
+        return res.status(409).json({ message: "User with email already exists!" });
+      }
+      const hashedPassword = await bcrypt.hash(password, 10);
+      //TODO: Will remove temp code,implemented using database
+      try {users.push({ id: Date.now().toString(),name: req.body.name,
+            email: req.body.email,password: hashedPassword
+          })} catch {res.redirect('/register')}
+
+      const newUser = new User({ name, email, password : hashedPassword,role });
+      const savedUser = await newUser.save().catch((err) => {
+          console.log("Error: ", err);
+          res.redirect('/register');
+          //res.status(500).json({ error: "Cannot register user at the moment!" });
+      });
+
+      if (savedUser) {
+        res.redirect('/login');
+        //res.json({ message: "Thanks for registering" });
+      }
+  });
 
 // app.delete('/logout', (req, res) => {
 //   req.logOut()
