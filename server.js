@@ -53,6 +53,16 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
   failureFlash: true
 }))
 
+// app.post('/login', checkNotAuthenticated, (req, res) => {
+//   let user = {
+//     email : req.body.email,
+//     password : req.body.password
+//   }
+//   console.log(user)
+// })
+
+
+
 app.get('/register', checkNotAuthenticated, (req, res) => {
   res.render('register.ejs')
 })
@@ -104,6 +114,11 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
         //res.json({ message: "Thanks for registering" });
       }
   });
+
+
+  app.get('/forgot-password', (req, res) => {
+    res.render('forgot-password.ejs')
+  })
 
 // app.delete('/logout', (req, res) => {
 //   req.logOut()
