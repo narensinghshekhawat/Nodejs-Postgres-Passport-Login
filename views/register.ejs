@@ -1,22 +1,95 @@
-<h1>Register</h1>
-<form action="/register" method="POST">
-  <div>
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" required>
-  </div>
-  <div>
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required>
-  </div>
-  <div>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required>
-  </div>
-  <div>
-    <label for="role">Role</label>
-    <input type="text" id="role" name="role" required>
-  </div>
-  
-  <button type="submit">Register</button>
-</form>
-<a href="/login">Login</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"/>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/stylesheets/simple-sidebar.css" rel="stylesheet">
+    <link href="/stylesheets/bootstrap-select.min.css" rel="stylesheet"> 
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+
+</head>
+<body>
+<nav class="navbar navbar-default no-margin">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header fixed-brand">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle">
+            <span class="glyphicon glyphicon-th-large" style="margin-left:5px;" aria-hidden="true"></span>
+        </button>
+        <a class="navbar-brand" href="#"><i class="fa fa-a fa-4"></i></a>
+    </div><!-- navbar-header-->
+</nav>
+<div id="wrapper">
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid xyz">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>User Registration</h1>
+                    <div id="menu1" style=" height:717px ;overflow: auto;">
+                        <form class="form-group-sm" action="/register" method="post">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" onkeypress="return onlyAlphabets(event,this);" class="form-control"
+                                       required="required" id="name" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address:</label>
+                                <input type="email" class="form-control" required="required" id="email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Password:</label>
+                                <input type="password" minlength="6" required="required" class="form-control"
+                                       id="password" name="password">
+                           </div>
+                           <div class="form-group">
+                            <label for="department">Role:</label>
+                            <select class="form-control" id="role" name="role">
+                                <option value="admin">Admin</option>
+                                <option value="employee">Employee</option>
+                                <option value="trainee">Trainee</option>
+                            </select>
+                        </div>
+                            <button type="button" onclick="history.go(-1);" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.js" charset="UTF-8"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js" charset="UTF-8"></script>
+<script src="/javascripts/sidebar_menu.js"></script>
+<script src="/javascripts/bootstrap-select.min.js"></script>
+<script language="Javascript" type="text/javascript">
+    function onlyAlphabets(e, t) {
+        try {
+            if (window.event) {
+                var charCode = window.event.keyCode;
+            }
+            else if (e) {
+                var charCode = e.which;
+            }
+            else {
+                return true;
+            }
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123 || charCode === 32))
+                return true;
+            else
+                return false;
+        }
+        catch (err) {
+            alert(err.Description);
+        }
+    }
+</script>
+</body>
+</html>

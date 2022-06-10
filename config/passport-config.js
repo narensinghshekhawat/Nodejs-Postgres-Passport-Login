@@ -2,7 +2,7 @@ const LocalStrategy = require('passport-local').Strategy
 
 const bcrypt = require('bcrypt')
 
-const loginService = require("./services/loginService");
+const loginService = require("../services/loginService");
 
 function initialize(passport, findUserByEmail, findUserById) {
 

@@ -27,13 +27,6 @@ var transport = nodeMailer.createTransport({
          }
 });
 
-/* var mailOptions = {
-	from : 'narendra.shekhawat@gmail.com',
-    to : 'neetu.rathore1606@gmail.com',
-	subject : 'test node mail',
-	text:'Hello Please Sub Channel'
-}*/
-
 var sendWelcomeEmail = (mailOptions) => {
     console.log('In sendWelcomeEmail >>> '+mailOptions.from);
     transport.sendMail(mailOptions,function(error,info){
