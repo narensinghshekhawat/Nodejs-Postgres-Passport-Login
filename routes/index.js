@@ -59,7 +59,6 @@ if (process.env.NODE_ENV !== 'production') {
 
     router.get('/', function viewLoginPage(req, res, next) {
         var messages = req.flash('error');
-    
         res.render('login.ejs', {
             title: 'Log In',
             messages: messages,

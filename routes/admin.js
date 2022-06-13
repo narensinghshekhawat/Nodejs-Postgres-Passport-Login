@@ -1,10 +1,13 @@
-  var express = require('express');
-  var router = express.Router();
-  var passport = require('passport');
-  var csrf = require('csurf');
-  var csrfProtection = csrf();
-  var config_passport = require('../config/passport-config');
+  const express = require('express');
+  const router = express.Router();
+  const passport = require('passport');
+  const csrf = require('csurf');
+  const csrfProtection = csrf();
+  const config_passport = require('../config/passport-config');
+  const User = require('../models/user');
+  const userService = require("../services/userService");
   router.use(csrfProtection);
+
 
 
   const checkAuthenticated = (req, res, next) =>{
@@ -34,4 +37,25 @@
       });
   });
 
+  router.get('/view-all-user-by-type/:type', async (req, res, next)=> {
+    var userChunks = [];
+    var chunkSize = 3;
+    var userType = req.params.type;
+    userService.findAllUserByRoleType(userType).then(
+      (rows) => {
+        for (var i = 0; i < rows.length; i++) {
+          userChunks.push(rows[i]);
+          console.log('In view-all-trainees allEmployees.dataValues[i] === '+rows[i])
+        }
+        res.render('admin/viewAllUserByType.ejs', {
+            title: (userType=='employee') ? 'All Employees' : 'All Trainees',
+            csrfToken: req.csrfToken(),
+            users: userChunks,
+            userName: req.session.user.name
+        });
+      }
+    ).catch();
+  });
+
+  
   module.exports = router;
