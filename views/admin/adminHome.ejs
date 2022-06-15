@@ -42,26 +42,11 @@
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
-
-            <li>
-                <a href="#" id="menu3"><span class="fa-stack fa-lg pull-left"><i
-                                class="fa fa-users fa-stack-1x "></i></span> Employees [Count]</a>
-                <ul class="nav-pills nav-stacked" style="list-style-type:none;">
-                    <li><a href="/admin/view-all-user-by-type/<%='employee' %>"><span class="fa-stack fa-lg pull-left"><i
-                                        class="fa fa-eye fa-stack-1x "></i></span>View Employees</a></li>
-                    <li><a href="/admin/add-employee"><span class="fa-stack fa-lg pull-left"><i
-                                        class="fa fa-plus fa-stack-1x "></i></span>Add Employees</a></li>
-                </ul>
+            <li><a href="/admin/view-all-user-by-type/<%='employee'%>"><span class="fa-stack fa-lg pull-left"><i
+                    class="fa fa-user fa-stack-1x "></i></span>View Employees [<%=empCount %>]</a>
             </li>
-            <li>
-                <a href="#" id="menu3"><span class="fa-stack fa-lg pull-left"><i
-                                class="fa fa-users fa-stack-1x "></i></span> Trainees[Count]</a>
-                <ul class="nav-pills nav-stacked" style="list-style-type:none;">
-                    <li><a href="/admin/view-all-user-by-type/<%='employee'  %>"><span class="fa-stack fa-lg pull-left"><i
-                                        class="fa fa-eye fa-stack-1x "></i></span>Trainees</a></li>
-                    <li><a href="/admin/add-employee"><span class="fa-stack fa-lg pull-left"><i
-                                        class="fa fa-plus fa-stack-1x "></i></span>Add Trainees</a></li>
-                </ul>
+            <li><a href="/admin/view-all-user-by-type/<%='trainee'%>"><span class="fa-stack fa-lg pull-left"><i
+                    class="fa fa-user fa-stack-1x "></i></span>View Trainees [<%=traineeCount %>]</a>
             </li>
             
             <li data-toggle="modal" data-target="#myModal">
@@ -72,8 +57,7 @@
                 <a href="#"><span class="fa-stack fa-lg pull-left"><i
                                 class="fa fa-check-circle fa-stack-1x "></i></span>Mark Attendance</a>
             </li>
-            <li>
-                <a href="/admin/view-profile"><span class="fa-stack fa-lg pull-left"><i
+            <li><a href="/admin/view-profile"><span class="fa-stack fa-lg pull-left"><i
                                 class="fa fa-user fa-stack-1x "></i></span>View Profile</a>
             </li>
         </ul>

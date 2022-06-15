@@ -48,11 +48,6 @@ if (process.env.NODE_ENV !== 'production') {
       }
       next()
     }
-  
-    // router.get('/', checkAuthenticated, (req, res,next) => {
-    //   res.render('index.ejs', { name: req.user.name })
-    // })
-  
     router.get('/login', checkNotAuthenticated, (req, res,next) => {
       res.render('login.ejs')
     })
@@ -73,7 +68,9 @@ if (process.env.NODE_ENV !== 'production') {
     }))
   
     router.get('/check-type', function checkTypeOfLoggedInUser(req, res, next) {
-        req.session.user = req.user;  
+        req.session.user = req.user;
+        ssn=req.session; ssn.empCount;  ssn.traineeCount;   
+
         if (req.user.role == "admin") {
             res.redirect('/admin/');
         }else if (req.user.role == "trainee") {
